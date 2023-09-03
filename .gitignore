@@ -10,3 +10,5 @@
 !persistence/**
 !Utilities
 !Utilities/**
+
+persistence/appsettings.json

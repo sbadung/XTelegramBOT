@@ -8,7 +8,6 @@ public static class Configuration
     public static readonly string APP_SETTINGS = Path.Combine(BASE_PATH, "persistence", "appsettings.json");
     public static readonly string COMMANDS_INFORMATION = Path.Combine(BASE_PATH, "persistence", "commandsInformation.json");
     public static readonly string BOT_TOKEN = new JSONConfigurationLoader().LoadConfiguration(Configuration.APP_SETTINGS).GetSection("Secrets:BotToken").Value!;
-
     public static List<Telegram.Bot.Types.BotCommand> COMMANDS
     {
         get

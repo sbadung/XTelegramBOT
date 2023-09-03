@@ -1,0 +1,14 @@
+[
+  {
+    "Command": "help",
+    "Description": "Get commands helper"
+  },
+  {
+    "Command": "names",
+    "Description": "Get a list of names"
+  },
+  {
+    "Command": "groups",
+    "Description": "Get a list of groups"
+  }
+]

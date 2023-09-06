@@ -22,7 +22,13 @@ public static class Commands
     await botClient.SendTextMessageAsync(chatId, response);
   }
 
-  public static async Task CommandNotFound(ITelegramBotClient botClient, long chatId, string command)
+  public static async Task CommandNotImplemented(ITelegramBotClient botClient, long chatId)
+  {
+    var response = "Work in progress, this command will be implemented soon";
+    await botClient.SendTextMessageAsync(chatId, response);
+  }
+
+  public static async Task CommandNotFound(ITelegramBotClient botClient, long chatId)
   {
     var response = "Unrecognized command. Say what?";
     await botClient.SendTextMessageAsync(chatId, response);

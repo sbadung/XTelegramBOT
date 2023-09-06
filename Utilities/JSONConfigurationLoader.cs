@@ -8,7 +8,7 @@ namespace XTelegramBOT.Utilities
         public IConfigurationRoot LoadConfiguration(string path)
         {
             bool notFound = !File.Exists(path);
-            bool notJson = !Path.HasExtension(path) || !Path.GetExtension(path).Equals(".json", StringComparison.OrdinalIgnoreCase);
+            bool notJson = !Path.HasExtension(path) || !Path.GetExtension(path).Equals(".json");
 
             if (notFound) throw new FileNotFoundException("Unable to locate specified JSON file.", path);
             if (notJson) throw new ArgumentException("Only JSON files are supported.", nameof(path));

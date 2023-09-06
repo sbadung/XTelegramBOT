@@ -1,14 +1,3 @@
-*
-!.gitignore
-!XTelegramBOT.csproj
-!XTelegramBOT.sln
-!Program.cs
-!Configuration.cs
-!src
-!src/**
-!persistence
-!persistence/**
-!Utilities
-!Utilities/**
-!Example
-!Example/**
+bin
+obj
+persistence/appsetting.json

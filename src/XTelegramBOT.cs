@@ -1,4 +1,5 @@
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using XTelegramBOT.Polling;
 using XTelegramBOT.Update;
 
@@ -10,18 +11,18 @@ public class XTelegramBOT : TelegramBotClient
   private XTelegramBOT(XTelegramBOTOptions options, HttpClient? httpClient = null) : base(options, httpClient) { }
   private XTelegramBOT(string token, HttpClient? httpClient = null) : base(token, httpClient) { }
 
-  public static async Task<XTelegramBOT> Instance(XTelegramBOTOptions options, HttpClient? httpClient = null)
+  public static async Task<XTelegramBOT> Instance(XTelegramBOTOptions options, HttpClient? httpClient = null, IEnumerable<BotCommand>? commands = null)
   {
     BOT ??= new XTelegramBOT(options, httpClient);
-    await BOT.SetMyCommandsAsync(Configuration.COMMANDS);
+    await BOT.SetMyCommandsAsync(commands ?? Configuration.COMMANDS);
     return BOT;
   }
 
-  public static async Task<XTelegramBOT> Instance(string token, HttpClient? httpClient = null)
+  public static async Task<XTelegramBOT> Instance(string token, HttpClient? httpClient = null, IEnumerable<BotCommand>? commands = null)
   {
 
     BOT ??= new XTelegramBOT(token, httpClient);
-    await BOT.SetMyCommandsAsync(Configuration.COMMANDS);
+    await BOT.SetMyCommandsAsync(commands ?? Configuration.COMMANDS);
     return BOT;
   }
 

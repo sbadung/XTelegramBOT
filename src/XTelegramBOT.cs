@@ -42,7 +42,7 @@ public class XTelegramBOT : TelegramBotClient
       cancellationToken: cts.Token
     );
 
-    var me = await this.GetMeAsync();
+    var me = await this.GetMeAsync(cancellationToken: cts.Token);
     Console.WriteLine($"Listening for @{me.Username}");
     Console.WriteLine($"Press any key to stop listening");
     Console.ReadLine();

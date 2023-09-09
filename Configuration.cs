@@ -13,15 +13,14 @@ public static class Configuration
         Path.Combine(BASE_PATH, "persistence", "commandsInformation.json");
 
     public static readonly string BOT_TOKEN = new JSONConfigurationLoader()
-        .LoadConfiguration(Configuration.APP_SETTINGS).GetSection("Secrets:BotToken").Value!;
+        .LoadConfiguration(APP_SETTINGS).GetSection("Secrets:BotToken").Value!;
 
     public static IEnumerable<BotCommand> COMMANDS
     {
         get
         {
-            var json = System.IO.File.ReadAllText(Configuration.COMMANDS_INFORMATION);
-            return System.Text.Json.JsonSerializer.Deserialize<List<Telegram.Bot.Types.BotCommand>>(json) ??
-                   new List<Telegram.Bot.Types.BotCommand>();
+            var json = System.IO.File.ReadAllText(COMMANDS_INFORMATION);
+            return System.Text.Json.JsonSerializer.Deserialize<IEnumerable<BotCommand>>(json) ?? new List<BotCommand>();
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Text.Encodings.Web;
-using static System.Text.Encodings.Web.HtmlEncoder;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 

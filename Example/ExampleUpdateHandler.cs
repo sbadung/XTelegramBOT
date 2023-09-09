@@ -1,4 +1,5 @@
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using XTelegramBOT.Command;
 using XTelegramBOT.Update;
 
@@ -6,12 +7,28 @@ namespace XTelegramBOT.Example
 {
     public class ExampleUpdateHandler : IUpdateHandler
     {
-        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update,
-            CancellationToken cancellationToken)
+        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
+        {
+            if (update == null || update.Message == null) return;
+            var UPDATE_HANDLERS = new Dictionary<Telegram.Bot.Types.Enums.MessageType, Func<Task>>() {
+                { Telegram.Bot.Types.Enums.MessageType.Text, async () => await HandleTextMessageAsync(botClient, update.Message) }
+            };
+
+            try
+            {
+                await UPDATE_HANDLERS[update.Message.Type]();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task HandleTextMessageAsync(ITelegramBotClient botClient, Message message)
         {
             /* Only considering text messages */
-            if (update.Message is not { } message) return;
             if (message.Text is not { } messageText) return;
+
             /* To add functionality in the future for other message types
              * message.MessageType...
             */
@@ -42,4 +59,5 @@ namespace XTelegramBOT.Example
             }
         }
     }
+
 }

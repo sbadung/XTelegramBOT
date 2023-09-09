@@ -10,8 +10,9 @@ namespace XTelegramBOT.Example
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
         {
             if (update == null || update.Message == null) return;
+            var message = update.Message;
             var UPDATE_HANDLERS = new Dictionary<Telegram.Bot.Types.Enums.MessageType, Func<Task>>() {
-                { Telegram.Bot.Types.Enums.MessageType.Text, async () => await HandleTextMessageAsync(botClient, update.Message) }
+                { Telegram.Bot.Types.Enums.MessageType.Text, async () => await HandleTextMessageAsync(botClient, message) }
             };
 
             try
@@ -24,14 +25,12 @@ namespace XTelegramBOT.Example
             }
         }
 
-        public async Task HandleTextMessageAsync(ITelegramBotClient botClient, Message message)
+        public static async Task HandleTextMessageAsync(ITelegramBotClient botClient, Message message)
         {
-            /* Only considering text messages */
+            /* TODO: Handle invalid text */
             if (message.Text is not { } messageText) return;
 
-            /* To add functionality in the future for other message types
-             * message.MessageType...
-            */
+
 
             var chatId = message.Chat.Id;
             var username = message.Chat.Username;

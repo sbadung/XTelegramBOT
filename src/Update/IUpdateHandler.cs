@@ -4,5 +4,5 @@ namespace XTelegramBOT.Update;
 
 public interface IUpdateHandler
 {
-    Task HandleUpdate(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken);
+    Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken);
 }

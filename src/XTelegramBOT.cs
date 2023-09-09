@@ -36,7 +36,7 @@ public class XTelegramBOT : TelegramBotClient
     };
 
     this.StartReceiving(
-      updateHandler: updateHandler.HandleUpdate,
+      updateHandler: updateHandler.HandleUpdateAsync,
       pollingErrorHandler: pollingErrorHandler.HandlePollingErrorAsync,
       receiverOptions: receiverOptions,
       cancellationToken: cts.Token

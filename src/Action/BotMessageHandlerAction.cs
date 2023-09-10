@@ -6,10 +6,10 @@ namespace XTelegramBOT.Action
     public static class BotMessageHandlerAction
     {
         public static async Task HandleUnknownMessageAsync(
-        ITelegramBotClient botClient,
-        Message message,
-        Dictionary<string, BotCommandActionAsync>? commandActions = null
-    )
+            ITelegramBotClient botClient,
+            Message message,
+            Dictionary<string, BotCommandActionAsync>? commandActions = null
+        )
         {
             var response = $"Unknow message type received";
             var chatId = message.Chat.Id;
@@ -26,20 +26,48 @@ namespace XTelegramBOT.Action
             if (message.Text is not { } messageText) return;
 
             var chatId = message.Chat.Id;
-            var username = message.Chat.Username;
 
-            if (!messageText.StartsWith("/") || messageText.Length < 2) return;
-            var command = messageText[1..]; /* Removes the '/' */
+            if (messageText.StartsWith("/") && messageText.Length > 1)
+            {
+                var command = messageText[1..]; /* Removes the '/' */
+                await HandleCommandAsync(botClient, chatId, command, commandActions ?? BotCommandAction.commandActions);
+            }
+            else
+            {
+                /* Filtra spam */
+                /* Cerca domande duplicate */
+                /* Altre funzionalità */
+            }
+        }
+
+        private static async Task HandleCommandAsync(
+            ITelegramBotClient botClient,
+            long chatId,
+            string command,
+            Dictionary<string, BotCommandActionAsync> commandActions
+        )
+        {
             try
             {
-                if (commandActions is null) return; /*Handle null ses */
                 await commandActions[command](botClient, chatId);
             }
             catch (KeyNotFoundException ex)
             {
-                var hasCommand = Configuration.COMMANDS.Any(command.Equals);
-                if (hasCommand) await CommandNotImplemented(botClient, chatId);
-                else await CommandNotFound(botClient, chatId);
+                /* La chiave utilizzata per identificare il comando non si trovare nel dizionario: */
+                IEnumerable<BotCommand> commands = await botClient.GetMyCommandsAsync();
+                bool existsInCommandsList = commands.ToList().Any(command.Equals);
+
+                if (existsInCommandsList)
+                {
+                    /* Comando presente nell'elenco dei comandi: manca l'implementazione del comando */
+                    await CommandNotImplemented(botClient, chatId);
+                }
+                else
+                {
+                    /* Comando inserito inesistente */
+                    await CommandNotFound(botClient, chatId);
+                }
+
                 Console.WriteLine(ex.Message);
             }
         }

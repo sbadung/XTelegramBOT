@@ -5,15 +5,22 @@ namespace XTelegramBOT.Action
 {
   public static class BotCommandAction
   {
-    public static async Task ListHelpAsync(ITelegramBotClient botClient, long chatId)
+    public static Dictionary<string, BotCommandActionAsync> commandActions = new() {
+      { "help", ListHelpAsync },
+      { "names",ListNamesAsync },
+      { "groups", ListGroupsAsync }
+    };
+
+    public static async Task CommandNotFound(ITelegramBotClient botClient, long chatId)
     {
-      var response = FormatCommandsHTML(Configuration.COMMANDS);
+      var response = "Unrecognized command. Say what?";
       await botClient.SendTextMessageAsync(chatId, response);
     }
 
-    private static string FormatCommandsHTML(IEnumerable<BotCommand> cOMMANDS)
+    public static async Task CommandNotImplemented(ITelegramBotClient botClient, long chatId)
     {
-      throw new NotImplementedException();
+      var responseContent = "Work in progress, this command will be implemented soon";
+      await botClient.SendTextMessageAsync(chatId, responseContent);
     }
 
     public static async Task ListNamesAsync(ITelegramBotClient botClient, long chatId)
@@ -34,16 +41,17 @@ namespace XTelegramBOT.Action
       await botClient.SendTextMessageAsync(chatId, response);
     }
 
-    public static async Task CommandNotImplemented(ITelegramBotClient botClient, long chatId)
+    public static async Task ListHelpAsync(ITelegramBotClient botClient, long chatId)
     {
-      var responseContent = "Work in progress, this command will be implemented soon";
-      await botClient.SendTextMessageAsync(chatId, responseContent);
+      var response = FormatCommandsHTML(Configuration.COMMANDS);
+      await botClient.SendTextMessageAsync(chatId, response);
     }
 
-    public static async Task CommandNotFound(ITelegramBotClient botClient, long chatId)
+    private static string FormatCommandsHTML(IEnumerable<BotCommand> commands)
     {
-      var response = "Unrecognized command. Say what?";
-      await botClient.SendTextMessageAsync(chatId, response);
+      var HTML = "";
+        commands.ToList().ForEach(command => HTML += $"/{command.Command}: {command.Description}\n");
+      return HTML;
     }
   }
 }

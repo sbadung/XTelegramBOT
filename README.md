@@ -1,6 +1,8 @@
 # XTelegramBOT Library
 Wrapper della libreria .NET [Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot)
 
+> La documentazione non è aggiornata! Guardare versione git precedente.
+
 ## Aggiungere un comando 
 La logica per la gestione dei comandi vede il parsing dei comandi elencati all'interno del file JSON [`/persistence/commandsInformation.json`](/persistence/commandsInformation.json) (implementazione: [`Configuration.cs`](/Configuration.cs) alla riga 18) in `IEnumerable<BotCommand>`. L'elenco dei comandi disponibli viene specificato all'interno del file [`XTelegramBOT.cs`](/src/XTelegramBOT.cs) all'interno dei metodi per la generazione di istanze (implementazione: [`XTelegramBOT.cs:Instance`](/src/XTelegramBOT.cs) alle righe 14 e 21) tramite la chiamata all'API `TelegramBot.SetMyCommandsAsync(IEnumerable<BotCommand> commands)`
 

@@ -1,4 +1,6 @@
-using Telegram.Bot.Types;
+using XTelegramBOT.Action.BotMessageTypeHandler;
+using XTelegramBOT.Action.BotMessageTypeHandler.Implementation;
+using XTelegramBOT.BotCommandFunctionality.Implementation;
 using XTelegramBOT.Utilities;
 
 namespace XTelegramBOT;
@@ -10,14 +12,25 @@ public static class Configuration
     private static readonly string APP_SETTINGS = Path.Combine(BASE_PATH, "persistence", "appsettings.json");
     private static readonly string COMMANDS_INFORMATION = Path.Combine(BASE_PATH, "persistence", "commandsInformation.json");
 
-    public static readonly string BOT_TOKEN = new JSONConfigurationLoader().LoadConfiguration(APP_SETTINGS).GetSection("Secrets:BotToken").Value!;
-
-    public static IEnumerable<BotCommand> COMMANDS
+    public static class Default
     {
-        get
+        public static readonly string BOT_TOKEN = new JSONConfigurationLoader().LoadConfiguration(APP_SETTINGS).GetSection("Secrets:BotToken").Value!;
+
+        public static IEnumerable<Telegram.Bot.Types.BotCommand> BOT_COMMANDS
         {
-            var json = System.IO.File.ReadAllText(COMMANDS_INFORMATION);
-            return System.Text.Json.JsonSerializer.Deserialize<IEnumerable<BotCommand>>(json) ?? new List<BotCommand>();
+            get
+            {
+                var json = File.ReadAllText(COMMANDS_INFORMATION);
+                return System.Text.Json.JsonSerializer.Deserialize<IEnumerable<Telegram.Bot.Types.BotCommand>>(json) ?? new List<Telegram.Bot.Types.BotCommand>();
+            }
         }
+
+        public static readonly Dictionary<string, IBotCommandFunctionality> COMMANDS_FUNCTIONALITIES = new() {
+            { "groups", new ListGroups() }
+        };
+
+        public static readonly Dictionary<Telegram.Bot.Types.Enums.MessageType, IBotMessageTypeHandler> MESSAGE_TYPE_HANDLERS = new() {
+            { Telegram.Bot.Types.Enums.MessageType.Text,  new TextMessageHandler() }
+        };
     }
 }

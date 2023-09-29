@@ -1,4 +1,6 @@
-﻿using XTelegramBOT.Action;
+﻿using XTelegramBOT.Action.BotMessageTypeHandler;
+using XTelegramBOT.Action.BotMessageTypeHandler.Implementation;
+using XTelegramBOT.BotCommandFunctionality.Implementation;
 using XTelegramBOT.Example;
 using XTelegramBOT.Polling;
 using XTelegramBOT.Update;
@@ -7,23 +9,21 @@ namespace XTelegramBOT;
 
 internal static class Program
 {
-  public static Dictionary<string, BotCommandActionAsync> commandActions = new() {
-    { "help", BotCommandAction.ListHelpAsync },
-    { "names",BotCommandAction.ListNamesAsync },
-    { "groups", BotCommandAction.ListGroupsAsync }
-  };
 
-  public static Dictionary<Telegram.Bot.Types.Enums.MessageType, BotMessageHandlerActionAsync> updateHandlers = new() {
-    { Telegram.Bot.Types.Enums.MessageType.Text, BotMessageHandlerAction.HandleTextMessageAsync },
-    { Telegram.Bot.Types.Enums.MessageType.Unknown, BotMessageHandlerAction.HandleUnknownMessageAsync }
+  public static readonly Dictionary<string, IBotCommandFunctionality> COMMANDS_FUNCTIONALITIES = new() {
+    { "groups", new ListGroups() }
+  };
+  
+  public static readonly Dictionary<Telegram.Bot.Types.Enums.MessageType, IBotMessageTypeHandler> MESSAGE_TYPE_HANDLERS = new() {
+    { Telegram.Bot.Types.Enums.MessageType.Text,  new TextMessageHandler() }
   };
 
   private static async Task Main()
   {
     string BOT_TOKEN = "";
-    if (string.IsNullOrEmpty(BOT_TOKEN)) BOT_TOKEN = Configuration.BOT_TOKEN;
+    if (string.IsNullOrEmpty(BOT_TOKEN)) BOT_TOKEN = Configuration.Default.BOT_TOKEN;
 
-    IUpdateHandler updateHandler = new ExampleUpdateHandler(updateHandlers, commandActions);
+    IUpdateHandler updateHandler = new ExampleUpdateHandler(MESSAGE_TYPE_HANDLERS, COMMANDS_FUNCTIONALITIES);
     IPollingErrorHandler pollingErrorHandler = new ExamplePollingErrorHandler();
 
     var bot = XTelegramBOT.Instance(BOT_TOKEN).Result;

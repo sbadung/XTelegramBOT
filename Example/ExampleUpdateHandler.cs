@@ -1,19 +1,21 @@
 using Telegram.Bot;
+using XTelegramBOT.Action.BotMessageTypeHandler;
 using XTelegramBOT.Update;
 
 namespace XTelegramBOT.Example
 {
     public class ExampleUpdateHandler : IUpdateHandler
     {
-        private readonly Dictionary<Telegram.Bot.Types.Enums.MessageType, BotMessageHandlerActionAsync> MESSAGE_HANDLERS;
-        private readonly Dictionary<string, BotCommandActionAsync> COMMAND_ACTIONS;
+        private readonly Dictionary<Telegram.Bot.Types.Enums.MessageType, IBotMessageTypeHandler> _messageTypeHandlers;
+        private readonly Dictionary<string, IBotCommandFunctionality> _commandFunctionalities;
 
         public ExampleUpdateHandler(
-            Dictionary<Telegram.Bot.Types.Enums.MessageType, BotMessageHandlerActionAsync> messageHandlers,
-            Dictionary<string, BotCommandActionAsync> commandActions
-        ) {
-            MESSAGE_HANDLERS = messageHandlers;
-            COMMAND_ACTIONS = commandActions;
+            Dictionary<Telegram.Bot.Types.Enums.MessageType, IBotMessageTypeHandler> messageTypeHandlers,
+            Dictionary<string, IBotCommandFunctionality> commandFunctionalities
+        )
+        {
+            _messageTypeHandlers = messageTypeHandlers;
+            _commandFunctionalities = commandFunctionalities;
         }
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Telegram.Bot.Types.Update update, CancellationToken cancellationToken)
@@ -23,7 +25,7 @@ namespace XTelegramBOT.Example
 
             try
             {
-                await MESSAGE_HANDLERS[update.Message.Type](botClient, message, COMMAND_ACTIONS);
+                await _messageTypeHandlers[update.Message.Type].Handle(botClient, message, _commandFunctionalities);
             }
             catch (KeyNotFoundException ex)
             {

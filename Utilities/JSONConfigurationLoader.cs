@@ -5,6 +5,8 @@ namespace XTelegramBOT.Utilities
 {
     public class JSONConfigurationLoader : IConfigurationLoader
     {
+        public JSONConfigurationLoader() : base() { }
+
         public IConfigurationRoot LoadConfiguration(string path)
         {
             bool notFound = !File.Exists(path);
@@ -28,8 +30,6 @@ namespace XTelegramBOT.Utilities
             {
                 throw new IOException("Could not open file.", ex);
             }
-
         }
-        public JSONConfigurationLoader() : base() { }
     }
 }

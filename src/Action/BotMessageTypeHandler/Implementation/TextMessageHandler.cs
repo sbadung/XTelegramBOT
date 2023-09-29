@@ -1,5 +1,6 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using XTelegramBOT.Utility;
 
 namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
 {
@@ -14,6 +15,12 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
 
         var chatId = message.Chat.Id;
 
+        /* Handle spam and foul language */
+        if (ForbiddenWordController.ContainsOffensiveWord(messageText) || ForbiddenDomainController.ContainsForbiddenDomain(messageText))
+        {
+          await botClient.DeleteMessageAsync(chatId, message.MessageId);
+        }
+
         if (messageText.StartsWith("/") && messageText.Length > 1)
         {
           var command = messageText[1..]; /* Removes the '/' */
@@ -21,9 +28,8 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
         }
         else
         {
-          /* Filtra spam */
-          /* Cerca domande duplicate */
-          /* Altre funzionalità */
+          /* TODO: Spamcheck */
+          /* TODO: DuplicateQuestion */
         }
       }
     }

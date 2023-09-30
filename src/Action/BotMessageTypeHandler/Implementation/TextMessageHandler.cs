@@ -4,7 +4,7 @@ using XTelegramBOT.Utility;
 
 namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
 {
-  public class TextMessageHandler : AbstractBotMessageTypeHandler
+    public class TextMessageHandler : AbstractBotMessageTypeHandler
   {
     public override async Task Handle(ITelegramBotClient botClient, Message message, Dictionary<string, IBotCommandFunctionality>? commandFunctionalities = null)
     {
@@ -15,8 +15,9 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
 
         var chatId = message.Chat.Id;
 
-        /* Handle spam and foul language */
-        if (ForbiddenWordController.ContainsOffensiveWord(messageText) || ForbiddenDomainController.ContainsForbiddenDomain(messageText))
+        /* Handle spam and foul language*/
+        bool hasForbiddenContent = ForbiddenWordController.ContainsOffensiveWord(messageText) || ForbiddenDomainController.ContainsForbiddenDomain(messageText);
+        if (hasForbiddenContent)
         {
           await botClient.DeleteMessageAsync(chatId, message.MessageId);
         }
@@ -28,7 +29,6 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
         }
         else
         {
-          /* TODO: Spamcheck */
           /* TODO: DuplicateQuestion */
         }
       }

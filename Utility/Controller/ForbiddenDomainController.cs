@@ -1,9 +1,10 @@
-using XTelegramBOT;
-
-public class ForbiddenDomainController
+namespace XTelegramBOT.Utility
 {
-  public  static bool ContainsForbiddenDomain(string text)
-  {
-    return Configuration.Default.FORBIDDEN_DOMAINS.Any(domain => text.Equals(domain, StringComparison.OrdinalIgnoreCase));
-  }
+    public class ForbiddenDomainController
+    {
+        public static bool ContainsForbiddenDomain(string text)
+        {
+            return Configuration.Default.FORBIDDEN_DOMAINS.Any(domain => text.Equals(domain, StringComparison.OrdinalIgnoreCase));
+        }
+    }
 }

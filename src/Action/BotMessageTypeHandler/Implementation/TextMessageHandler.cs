@@ -15,7 +15,7 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
 
         var chatId = message.Chat.Id;
 
-        /* Handle spam and foul language*/
+        /* Handle spam and foul language */
         bool hasForbiddenContent = ForbiddenWordController.ContainsOffensiveWord(messageText) || ForbiddenDomainController.ContainsForbiddenDomain(messageText);
         if (hasForbiddenContent)
         {
@@ -29,7 +29,7 @@ namespace XTelegramBOT.Action.BotMessageTypeHandler.Implementation
         }
         else
         {
-          /* TODO: DuplicateQuestion */
+          /* TODO: DuplicateQuestio, Suggested messages etc. */
         }
       }
     }

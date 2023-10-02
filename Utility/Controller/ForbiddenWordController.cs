@@ -26,7 +26,7 @@ namespace XTelegramBOT.Utility
             {"[aA4@]", "a"}, {"[bB8]", "b"}, {"[cC(]", "c"}, {"[eE3]", "e"},
             {"[gG9]", "g"}, {"[hH#]", "h"}, {"[iI1!]", "i"}, {"[lL|]", "l"},
             {"[oO0]", "o"}, {"[sS$5]", "s"}, {"[tT7+]", "t"}, {"[zZ2]", "z"}
-            /* Te more, the better */
+            /* Aggiungere altri leet options */
         };
 
     public static string ConvertFromLeetspeak(string leetspeak)

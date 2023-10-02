@@ -13,6 +13,10 @@ public static class Configuration
     private static readonly string APP_SETTINGS_PATH = Path.Combine(BASE_PATH, "persistence", "appsettings.json");
     private static readonly string COMMANDS_INFORMATION_PATH = Path.Combine(BASE_PATH, "persistence", "commandsInformation.json");
 
+    public static readonly List<int> ADMINS = new () {};
+
+    
+
     public static class Default
     {
         public static readonly string BOT_TOKEN = new JSONConfigurationLoader().LoadConfiguration(APP_SETTINGS_PATH).GetSection("Secrets:BotToken").Value!;

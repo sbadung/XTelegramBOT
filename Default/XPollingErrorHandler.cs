@@ -2,9 +2,9 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using XTelegramBOT.Polling;
 
-namespace XTelegramBOT.Example;
+namespace XTelegramBOT.Default;
 
-public class ExamplePollingErrorHandler : IPollingErrorHandler
+public class XPollingErrorHandler : IPollingErrorHandler
 {
   public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
   {

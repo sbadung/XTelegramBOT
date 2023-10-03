@@ -7,22 +7,8 @@ namespace XTelegramBOT;
 
 public class XTelegramBOT : TelegramBotClient
 {
-  private XTelegramBOT(XTelegramBOTOptions options, HttpClient? httpClient = null) : base(options, httpClient) { }
-  private XTelegramBOT(string token, HttpClient? httpClient = null) : base(token, httpClient) { }
-
-  public static async Task<XTelegramBOT> Instance(XTelegramBOTOptions options, HttpClient? httpClient = null, IEnumerable<Telegram.Bot.Types.BotCommand>? commands = null)
-  {
-    var bot = new XTelegramBOT(options, httpClient);
-    await bot.SetMyCommandsAsync(commands ?? Configuration.Default.BOT_COMMANDS);
-    return bot;
-  }
-
-  public static async Task<XTelegramBOT> Instance(string token, HttpClient? httpClient = null, IEnumerable<Telegram.Bot.Types.BotCommand>? commands = null)
-  {
-    var bot = new XTelegramBOT(token, httpClient);
-    await bot.SetMyCommandsAsync(commands ?? Configuration.Default.BOT_COMMANDS);
-    return bot;
-  }
+  public XTelegramBOT(XTelegramBOTOptions options, HttpClient? httpClient = null) : base(options, httpClient) { }
+  public XTelegramBOT(string token, HttpClient? httpClient = null) : base(token, httpClient) { }
 
   public async Task RunAsync(IUpdateHandler updateHandler, IPollingErrorHandler pollingErrorHandler)
   {

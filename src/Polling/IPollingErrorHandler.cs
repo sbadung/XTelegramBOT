@@ -1,7 +1,5 @@
-using Telegram.Bot;
-
 namespace XTelegramBOT.Polling;
 public interface IPollingErrorHandler
 {
-    Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken);
+    Task HandlePollingErrorAsync(Telegram.Bot.ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken);
 }

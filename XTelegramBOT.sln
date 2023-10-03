@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XTelegramBOT", "XTelegramBOT.csproj", "{A6B132FE-33C9-4EC5-8291-00D6DD626D53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XTelegramBOT", "XTelegramBOT.csproj", "{E241EA6D-FCD4-4D4B-A175-67422D4A3933}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A6B132FE-33C9-4EC5-8291-00D6DD626D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6B132FE-33C9-4EC5-8291-00D6DD626D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6B132FE-33C9-4EC5-8291-00D6DD626D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6B132FE-33C9-4EC5-8291-00D6DD626D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E241EA6D-FCD4-4D4B-A175-67422D4A3933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E241EA6D-FCD4-4D4B-A175-67422D4A3933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E241EA6D-FCD4-4D4B-A175-67422D4A3933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E241EA6D-FCD4-4D4B-A175-67422D4A3933}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BCBF4CAA-1528-49D4-A041-033FE2ED6A02}
+		SolutionGuid = {663B5E0F-8FE0-4D5F-ACAC-4A0DBA026EA5}
 	EndGlobalSection
 EndGlobal

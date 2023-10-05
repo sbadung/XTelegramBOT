@@ -15,6 +15,7 @@ public static class XMessageHandler
     var chatId = message.Chat.Id;
 
     Console.WriteLine($@"Received message: {messageText}");
+    Console.WriteLine($@"From {chatId} ({message.Chat.Username})");
     /* Handle spam and foul language */
     bool hasForbiddenContent = ForbiddenController.HasForbiddenContent(messageText);
     if (hasForbiddenContent)
@@ -27,13 +28,21 @@ public static class XMessageHandler
       var command = messageText[1..]; /* Removes the '/' */
       var commandNotFound = !CommandAction.HasCommand(command);
 
-      if (commandNotFound) return;
+      if (commandNotFound)
+      {
+        await CommandAction.CommandNotFound(command, bot, chatId);
+        return;
+      }
+      var hasPermissionToRunCommand = PermissionController.CanRunCommand(chatId, command);
 
-      if (PermissionController.CanRunCommand(chatId, command))
+      if (hasPermissionToRunCommand)
       {
         await CommandAction.RunCommand(command, bot, chatId);
       }
-
+      else
+      {
+        await CommandAction.UnauthorizedToRunCommand(command, bot, chatId);
+      }
     }
     else
     {
